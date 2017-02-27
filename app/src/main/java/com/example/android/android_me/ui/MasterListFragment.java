@@ -33,30 +33,29 @@ import com.example.android.android_me.data.AndroidImageAssets;
 // The list appears as a grid of images
 public class MasterListFragment extends Fragment {
 
-    // DONE (1) Define a new interface OnImageClickListener that triggers a callback in the host activity
-        // The callback is a method named onImageSelected(int position) that contains information about
-        // which position on the grid of images a user has clicked
+    // Define a new interface OnImageClickListener that triggers a callback in the host activity
+    OnImageClickListener mCallback;
 
-    private OnImageClickListener mCallback;
-
+    // OnImageClickListener interface, calls a method in the host activity named onImageSelected
     public interface OnImageClickListener {
-        public void onImageSelected(int position);
+        void onImageSelected(int position);
     }
 
-    // DONE (2) Override onAttach to make sure that the container activity has implemented the callback
-
-
+    // Override onAttach to make sure that the container activity has implemented the callback
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (!(context instanceof OnImageClickListener)) {
-            throw new ClassCastException(context.toString() + " must implement OnImageClickListener");
-
+        // This makes sure that the host activity has implemented the callback interface
+        // If not, it throws an exception
+        try {
+            mCallback = (OnImageClickListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement OnImageClickListener");
         }
-
-        mCallback = (OnImageClickListener) context;
     }
+
 
     // Mandatory empty constructor
     public MasterListFragment() {
@@ -70,7 +69,7 @@ public class MasterListFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.fragment_master_list, container, false);
 
         // Get a reference to the GridView in the fragment_master_list xml layout file
-        final GridView gridView = (GridView) rootView.findViewById(R.id.images_grid_view);
+        GridView gridView = (GridView) rootView.findViewById(R.id.images_grid_view);
 
         // Create the adapter
         // This adapter takes in the context and an ArrayList of ALL the image resources to display
@@ -79,10 +78,11 @@ public class MasterListFragment extends Fragment {
         // Set the adapter on the GridView
         gridView.setAdapter(mAdapter);
 
-        // TODO (3) Set a click listener on the gridView and trigger the callback onImageSelected when an item is clicked
+        // Set a click listener on the gridView and trigger the callback onImageSelected when an item is clicked
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                // Trigger the callback method and pass in the position that was clicked
                 mCallback.onImageSelected(position);
             }
         });
