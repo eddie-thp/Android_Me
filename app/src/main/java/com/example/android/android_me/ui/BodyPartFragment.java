@@ -26,12 +26,25 @@ import android.widget.ImageView;
 import com.example.android.android_me.R;
 import com.example.android.android_me.data.AndroidImageAssets;
 
+import java.util.List;
+
 public class BodyPartFragment extends Fragment {
 
-    // TODO (1) Create a setter method and class variable to set and store of a list of image resources
+    // DONE (1) Create a setter method and class variable to set and store of a list of image resources
 
-    // TODO (2) Create another setter method and variable to track and set the index of the list item to display
+    // DONE (2) Create another setter method and variable to track and set the index of the list item to display
         // ex. index = 0 is the first image id in the given list , index 1 is the second, and so on
+
+    private List<Integer> mImageResources;
+    private int mImageResourceIndex;
+
+    public void setImageResources(List<Integer> imageResources) {
+        mImageResources = imageResources;
+    }
+
+    public void setImageResourceIndex(int imageResourceIndex) {
+        mImageResourceIndex = imageResourceIndex;
+    }
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the fragment
@@ -51,11 +64,14 @@ public class BodyPartFragment extends Fragment {
         // Get a reference to the ImageView in the fragment layout
         ImageView imageView = (ImageView) rootView.findViewById(R.id.body_part_image_view);
 
-        // Set the image to the first in our list of head images
-        imageView.setImageResource(AndroidImageAssets.getHeads().get(0));
-
-        // TODO (3) If a list of image ids exists, set the image resource to the correct item in that list
+//        // Set the image to the first in our list of head images
+//        imageView.setImageResource(AndroidImageAssets.getHeads().get(0));
+//
+        // DONE (3) If a list of image ids exists, set the image resource to the correct item in that list
         // Otherwise, create a Log statement that indicates that the list was not found
+        if (mImageResources != null && !mImageResources.isEmpty() && mImageResourceIndex >= 0 && mImageResourceIndex < mImageResources.size()) {
+            imageView.setImageResource(mImageResources.get(mImageResourceIndex));
+        }
 
         // Return the rootView
         return rootView;
