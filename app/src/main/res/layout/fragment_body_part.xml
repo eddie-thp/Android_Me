@@ -10,18 +10,11 @@
  See the License for the specific language governing permissions and
  limitations under the License.-->
 
-<!-- Display the static master list fragment -->
-<fragment
+<!-- This fragment layout displays just one image of an Android-Me body part -->
+<ImageView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/master_list_fragment"
-    android:name="com.example.android.android_me.ui.MasterListFragment"
+    android:id="@+id/body_part_image_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent">
 
-<!-- DONE (1) Create a new two-pane activity_main layout for tablets (sw600dp)
-This means creating a new layout folder for tablet screens and another activity_main.xml -->
-
-<!-- DONE (2) Build the layout to display the MasterListFragment and all BodyPartFragments -->
-<!-- Specifically, this layout should be a horizontal LinearLayout with the MasterListFragment on the left of the
- screen and three vertically arranged FrameLayout containers for the dynamic BodyPartFragments on the right side -->
-
+</ImageView>
